@@ -13,7 +13,10 @@ final lightTheme = base.copyWith(
   extensions: const <ThemeExtension<dynamic>>[
     ThemeColors.light(),
   ],
-  colorScheme: const ColorScheme.light(),
+  colorScheme: ColorScheme.light(
+    onSurface: AppColors.white,
+    secondaryContainer: AppColors.white.withOpacity(0.16),
+  ),
   textTheme: base.primaryTextTheme.copyWith(
     displayLarge: AppTextStyles.displayLarge,
     displayMedium: AppTextStyles.displayMedium,
