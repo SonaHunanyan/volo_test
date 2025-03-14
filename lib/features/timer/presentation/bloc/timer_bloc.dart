@@ -12,6 +12,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerEvent>((event, emit) => switch (event) {
           TimerEvent$Get() => _getTimers(event, emit),
         });
+
+    add(const TimerEvent$Get());
   }
   final ITimerRepository _timerRepository;
 
