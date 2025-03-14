@@ -1,22 +1,29 @@
+import 'package:volo_test/features/timer/domain/model/order_type.dart';
 import 'package:volo_test/features/timer/domain/model/timer.dart';
 
 sealed class TimerState {
-  const TimerState({required this.timers});
+  const TimerState({
+    required this.timers,
+    required this.orderType,
+  });
   final List<TimerModel> timers;
+  final OrderType orderType;
 }
 
 class TimerState$Initial extends TimerState {
-  const TimerState$Initial() : super(timers: const []);
+  const TimerState$Initial()
+      : super(timers: const [], orderType: OrderType.recent);
 }
 
-class TimerState$Loading extends TimerState {
-  const TimerState$Loading({required super.timers});
+class TimerState$Processing extends TimerState {
+  const TimerState$Processing(
+      {required super.timers, required super.orderType});
 }
 
 class TimerState$Data extends TimerState {
-  const TimerState$Data({required super.timers});
+  const TimerState$Data({required super.timers, required super.orderType});
 }
 
 class TimerState$Error extends TimerState {
-  const TimerState$Error({required super.timers});
+  const TimerState$Error({required super.timers, required super.orderType});
 }

@@ -14,6 +14,7 @@ import 'package:volo_test/features/task/presentation/bloc/task_bloc.dart';
 import 'package:volo_test/features/task/presentation/bloc/task_state.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_bloc.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_state.dart';
+import 'package:volo_test/features/timer/presentation/widgets/sort_by_widget.dart';
 import 'package:volo_test/features/timer/presentation/widgets/widgets.dart';
 
 @RoutePage()
@@ -27,7 +28,17 @@ class TimersScreen extends StatelessWidget {
         context,
         titleText: AppStrings.timesheets,
         actions: [
-          PrimaryIconButton(icon: AppIcons.sort),
+          PrimaryIconButton(
+            icon: AppIcons.sort,
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                useRootNavigator: true,
+                isScrollControlled: true,
+                builder: (context) => const SortByWidget(),
+              );
+            },
+          ),
           SizedBox(width: 8.w),
           PrimaryIconButton(icon: AppIcons.plus),
           SizedBox(width: 16.w),

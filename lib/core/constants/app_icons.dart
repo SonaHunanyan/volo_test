@@ -8,4 +8,5 @@ class AppIcons {
   static const watch = '${_base}watch.svg';
   static const play = '${_base}play.svg';
   static const pause = '${_base}pause.svg';
+  static const check = '${_base}check.svg';
 }

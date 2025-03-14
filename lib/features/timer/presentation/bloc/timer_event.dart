@@ -1,3 +1,5 @@
+import 'package:volo_test/features/timer/domain/model/order_type.dart';
+
 sealed class TimerEvent {
   const TimerEvent();
 }
@@ -18,4 +20,9 @@ class TimerEvent$PauseTimer extends TimerEvent {
 
 class TimerEvent$Tick extends TimerEvent {
   const TimerEvent$Tick();
+}
+
+class TimerEvent$Sort extends TimerEvent {
+  const TimerEvent$Sort({required this.orderType});
+  final OrderType orderType;
 }

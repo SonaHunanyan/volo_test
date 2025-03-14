@@ -15,18 +15,21 @@ class PrimaryIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 48.r,
-      width: 48.r,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: context.themeData.colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: SizedBox(
-        height: 20.h,
-        child: SvgPicture.asset(
-          icon,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 48.r,
+        width: 48.r,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: context.themeData.colorScheme.secondaryContainer,
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: SizedBox(
+          height: 20.h,
+          child: SvgPicture.asset(
+            icon,
+          ),
         ),
       ),
     );
