@@ -10,7 +10,7 @@ class PrimarySnackbar extends SnackBar {
   }) : super(
           content: Text(
             text,
-            style: context.themeData.textTheme.displaySmall?.copyWith(
+            style: context.themeData.textTheme.bodyMedium?.copyWith(
               color: context.themeData.colorScheme.onSurface,
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:volo_test/core/constants/app_icons.dart';
 import 'package:volo_test/core/extensions/theme_extension.dart';
+import 'package:volo_test/core/ui/widgets/primary_container.dart';
 
 class PrimaryDropdown extends StatefulWidget {
   const PrimaryDropdown({
@@ -101,15 +102,7 @@ class _PrimaryDropdownState extends State<PrimaryDropdown> {
     return GestureDetector(
       key: buttonKey,
       onTap: _toggleMenu,
-      child: Container(
-        height: 56.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r),
-            border: Border.all(
-              color: context.themeData.colorScheme.secondaryContainer,
-              width: 2.r,
-            )),
+      child: PrimaryContainer(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

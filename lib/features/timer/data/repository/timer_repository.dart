@@ -26,4 +26,19 @@ class TimerRepository implements ITimerRepository {
       return TimerResult$Failure(error, stackTrace);
     }
   }
+
+  @override
+  Future<TimerResult<TimerModel>> createTimer({
+    required int projectId,
+    required int taskId,
+    required String description,
+  }) async {
+    try {
+      final timer = await _dataSource.createTimer(
+          projectId: projectId, taskId: taskId, description: description);
+      return TimerResult$Success(data: timer);
+    } catch (error, stackTrace) {
+      return TimerResult$Failure(error, stackTrace);
+    }
+  }
 }

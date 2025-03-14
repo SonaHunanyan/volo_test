@@ -15,6 +15,7 @@ import 'package:volo_test/features/task/presentation/bloc/task_bloc.dart';
 import 'package:volo_test/features/task/presentation/bloc/task_state.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_bloc.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_state.dart';
+import 'package:volo_test/features/timer/presentation/model/timer_error.dart';
 import 'package:volo_test/features/timer/presentation/widgets/sort_by_widget.dart';
 import 'package:volo_test/features/timer/presentation/widgets/widgets.dart';
 
@@ -66,10 +67,15 @@ class TimersScreen extends StatelessWidget {
             if (state is! TimerState$Error) {
               return;
             }
+            final errorMessage = switch (state.error) {
+              TimerError$FailToGet() => AppStrings.failToGetTimers,
+              TimerError$FailToCreate() => AppStrings.failToCreateTimer,
+              TimerError$FailToUpdate() => AppStrings.failToUpdateTimer,
+            };
             ScaffoldMessenger.of(context).showSnackBar(
               PrimarySnackbar(
                 context,
-                text: AppStrings.somethingWentWrong,
+                text: errorMessage,
                 color: context.themeData.colorScheme.error,
               ),
             );
@@ -98,7 +104,7 @@ class TimersScreen extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final timer = state.timers[index];
                             final task = taskState.tasks
-                                .firstWhereOrNull((e) => e.id == timer.id);
+                                .firstWhereOrNull((e) => e.id == timer.taskId);
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 4.h),
                               child: TimerCardWidget(

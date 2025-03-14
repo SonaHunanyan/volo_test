@@ -7,6 +7,7 @@ import 'package:volo_test/features/timer/domain/model/timer_result.dart';
 import 'package:volo_test/features/timer/domain/repository/timer_repository.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_event.dart';
 import 'package:volo_test/features/timer/presentation/bloc/timer_state.dart';
+import 'package:volo_test/features/timer/presentation/model/timer_error.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   TimerBloc({required ITimerRepository timerRepository})
@@ -18,6 +19,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
           TimerEvent$PauseTimer() => _pauseTimer(event, emit),
           TimerEvent$Tick() => _tick(event, emit),
           TimerEvent$Sort() => _sort(event, emit),
+          TimerEvent$Create() => _create(event, emit),
         });
 
     add(const TimerEvent$Get());
@@ -29,6 +31,30 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _ticker?.cancel();
     return super.close();
+  }
+
+  Future<void> _create(
+      TimerEvent$Create event, Emitter<TimerState> emit) async {
+    emit(TimerState$Processing(
+        timers: state.timers, orderType: state.orderType));
+    final timers = state.timers;
+    final result = await _timerRepository.createTimer(
+      projectId: event.projectId,
+      taskId: event.taskId,
+      description: event.description,
+    );
+    switch (result) {
+      case TimerResult$Success<TimerModel>():
+        emit(TimerState$Created(timers: timers, orderType: state.orderType));
+      case TimerResult$Failure<TimerModel>():
+        emit(
+          TimerState$Error(
+            timers: timers,
+            orderType: state.orderType,
+            error: const TimerError$FailToCreate(),
+          ),
+        );
+    }
   }
 
   Future<void> _sort(TimerEvent$Sort event, Emitter<TimerState> emit) async {
@@ -68,7 +94,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       _startTicker();
       return;
     }
-    emit(TimerState$Error(timers: timers, orderType: state.orderType));
+    emit(TimerState$Error(
+      timers: timers,
+      orderType: state.orderType,
+      error: const TimerError$FailToUpdate(),
+    ));
   }
 
   Future<void> _pauseTimer(
@@ -101,7 +131,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       _stopTickerIfNoActiveTimers();
       return;
     }
-    emit(TimerState$Error(timers: timers, orderType: state.orderType));
+    emit(TimerState$Error(
+      timers: timers,
+      orderType: state.orderType,
+      error: const TimerError$FailToUpdate(),
+    ));
   }
 
   Future<void> _getTimers(
@@ -115,8 +149,11 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
         timers.sort((a, b) => a.elapsedSeconds.compareTo(b.elapsedSeconds));
         emit(TimerState$Data(timers: timers, orderType: state.orderType));
       case TimerResult$Failure<List<TimerModel>>():
-        emit(
-            TimerState$Error(timers: state.timers, orderType: state.orderType));
+        emit(TimerState$Error(
+          timers: state.timers,
+          orderType: state.orderType,
+          error: const TimerError$FailToUpdate(),
+        ));
     }
   }
 

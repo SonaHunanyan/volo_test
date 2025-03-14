@@ -1,5 +1,6 @@
 import 'package:volo_test/features/timer/domain/model/order_type.dart';
 import 'package:volo_test/features/timer/domain/model/timer.dart';
+import 'package:volo_test/features/timer/presentation/model/timer_error.dart';
 
 sealed class TimerState {
   const TimerState({
@@ -25,5 +26,11 @@ class TimerState$Data extends TimerState {
 }
 
 class TimerState$Error extends TimerState {
-  const TimerState$Error({required super.timers, required super.orderType});
+  const TimerState$Error(
+      {required this.error, required super.timers, required super.orderType});
+  final TimerError error;
+}
+
+class TimerState$Created extends TimerState {
+  const TimerState$Created({required super.timers, required super.orderType});
 }

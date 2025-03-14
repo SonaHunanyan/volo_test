@@ -21,4 +21,20 @@ class TimerDataSource implements ITimerDataSource {
     _timers[index] = timer;
     return timer;
   }
+
+  @override
+  Future<TimerModel> createTimer({
+    required int projectId,
+    required int taskId,
+    required String description,
+  }) async {
+    final timer = TimerModel(
+      id: _timers.length + 1,
+      taskId: taskId,
+      createdAt: DateTime.now(),
+      description: description,
+    );
+    _timers.add(timer);
+    return timer;
+  }
 }

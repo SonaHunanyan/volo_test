@@ -26,3 +26,14 @@ class TimerEvent$Sort extends TimerEvent {
   const TimerEvent$Sort({required this.orderType});
   final OrderType orderType;
 }
+
+class TimerEvent$Create extends TimerEvent {
+  const TimerEvent$Create({
+    required this.description,
+    required this.projectId,
+    required this.taskId,
+  });
+  final int projectId;
+  final int taskId;
+  final String description;
+}

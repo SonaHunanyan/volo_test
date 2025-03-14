@@ -22,12 +22,13 @@ class TimerModel {
   final bool isFavorite;
   final DateTime? completedAt;
 
-  TimerModel copyWith(
-      {TimerCurrentState? currentState,
-      int? elapsedSeconds,
-      bool? isFavorite,
-      DateTime? startTime,
-      DateTime? completedAt}) {
+  TimerModel copyWith({
+    TimerCurrentState? currentState,
+    int? elapsedSeconds,
+    bool? isFavorite,
+    DateTime? startTime,
+    DateTime? completedAt,
+  }) {
     return TimerModel(
       id: id,
       description: description,
