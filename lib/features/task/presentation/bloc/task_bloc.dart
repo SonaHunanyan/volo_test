@@ -12,6 +12,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<TaskEvent>((event, emit) => switch (event) {
           TaskEvent$Get() => _getTasks(event, emit),
         });
+
+    add(const TaskEvent$Get());
   }
 
   final ITaskRepository _taskRepository;
