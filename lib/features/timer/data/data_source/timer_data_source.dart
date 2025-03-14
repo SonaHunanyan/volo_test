@@ -4,6 +4,7 @@ import 'package:volo_test/features/timer/domain/model/timer.dart';
 class TimerDataSource implements ITimerDataSource {
   final _timers = <TimerModel>[
     TimerModel(id: 1, startTime: DateTime.now(), taskId: 1),
+    TimerModel(id: 2, startTime: DateTime.now(), taskId: 2),
   ];
   @override
   Future<List<TimerModel>> getTimers() async {

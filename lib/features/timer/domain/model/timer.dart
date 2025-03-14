@@ -4,7 +4,7 @@ class TimerModel {
     required this.startTime,
     required this.taskId,
     this.isPlaying = false,
-    this.isFavorite = false,
+    this.durationInSeconds = 0,
     this.description,
     this.endTime,
   });
@@ -14,5 +14,5 @@ class TimerModel {
   final String? description;
   final bool isPlaying;
   final int taskId;
-  final bool isFavorite;
+  final int durationInSeconds;
 }

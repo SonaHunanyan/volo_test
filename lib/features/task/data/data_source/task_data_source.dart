@@ -10,14 +10,17 @@ class TaskDataSource implements ITaskDataSource {
         const Duration(days: 4),
       ),
       assignedTo: 'Ivan Zhuikov',
+      name: 'iOS app deployment',
     ),
     Task(
       id: 2,
       projectId: 1,
+      name: 'iOS app deployment',
       deadline: DateTime.now().add(
         const Duration(days: 3),
       ),
       assignedTo: 'Ivan Zhuikov',
+      isFavorite: true,
     ),
   ];
   @override
