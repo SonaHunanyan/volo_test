@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:volo_test/core/constants/app_icons.dart';
 import 'package:volo_test/core/constants/app_strings.dart';
 import 'package:volo_test/core/extensions/theme_extension.dart';
+import 'package:volo_test/core/router/app_router.gr.dart';
 import 'package:volo_test/core/theme/theme_colors.dart';
 import 'package:volo_test/core/ui/widgets/widgets.dart';
 import 'package:volo_test/features/project/presentation/bloc/project_bloc.dart';
@@ -40,7 +41,12 @@ class TimersScreen extends StatelessWidget {
             },
           ),
           SizedBox(width: 8.w),
-          PrimaryIconButton(icon: AppIcons.plus),
+          PrimaryIconButton(
+            icon: AppIcons.plus,
+            onTap: () {
+              context.router.push(const CreateTimerRoute());
+            },
+          ),
           SizedBox(width: 16.w),
         ],
       ),

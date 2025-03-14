@@ -7,4 +7,5 @@ class AppColors {
   static const white = Colors.white;
   static const red = Color(0xffCC3C21);
   static const sunglow = Color(0xffFFC629);
+  static const chambray = Color(0xff31488A);
 }

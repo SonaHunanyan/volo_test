@@ -20,7 +20,7 @@ final lightTheme = base.copyWith(
     primaryContainer: AppColors.white,
     error: AppColors.red,
     surfaceBright: AppColors.white.withOpacity(0.08),
-    outline: AppColors.white.withOpacity(0.16),
+    outline: AppColors.chambray,
     surfaceContainerHighest: AppColors.persianBlue2,
   ),
   textTheme: base.primaryTextTheme.copyWith(

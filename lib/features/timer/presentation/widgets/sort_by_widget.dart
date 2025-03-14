@@ -73,11 +73,12 @@ class _ItemWidget extends StatelessWidget {
       child: Container(
         height: 56.h,
         decoration: BoxDecoration(
-            border: Border(
-          bottom: BorderSide(
-            color: context.themeData.colorScheme.outline,
+          border: Border(
+            bottom: BorderSide(
+              color: context.themeData.colorScheme.secondaryContainer,
+            ),
           ),
-        )),
+        ),
         child: Row(
           children: [
             SizedBox(

@@ -4,6 +4,8 @@ class AppStrings {
   static const recent = 'Recent';
   static const oldest = 'Oldest';
   static const sortBy = 'Sort by';
+  static const createTimer = 'Create Timer';
+  static const project = 'Project';
 
   static timersCount(int count) =>
       count == 1 ? 'You have $count Timer' : 'You have $count Timers';
