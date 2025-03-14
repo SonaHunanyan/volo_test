@@ -37,3 +37,8 @@ class TimerEvent$Create extends TimerEvent {
   final int taskId;
   final String description;
 }
+
+class TimerEvent$Complete extends TimerEvent {
+  const TimerEvent$Complete(this.timerId);
+  final int timerId;
+}

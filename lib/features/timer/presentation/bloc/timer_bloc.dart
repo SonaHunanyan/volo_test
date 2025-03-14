@@ -20,6 +20,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
           TimerEvent$Tick() => _tick(event, emit),
           TimerEvent$Sort() => _sort(event, emit),
           TimerEvent$Create() => _create(event, emit),
+          TimerEvent$Complete() => _completeTimer(event, emit),
         });
 
     add(const TimerEvent$Get());
@@ -31,6 +32,44 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Future<void> close() {
     _ticker?.cancel();
     return super.close();
+  }
+
+  Future<void> _completeTimer(
+      TimerEvent$Complete event, Emitter<TimerState> emit) async {
+    emit(TimerState$Processing(
+        timers: state.timers, orderType: state.orderType));
+    final timers = state.timers;
+    final updatedTimers = state.timers.map((timer) {
+      if (timer.id == event.timerId) {
+        if (timer.completedAt != null) return timer;
+
+        final now = DateTime.now();
+        final elapsed =
+            timer.elapsedSeconds + now.difference(timer.startTime!).inSeconds;
+
+        final updatedTimer = timer.copyWith(
+          currentState: TimerCurrentState.paused,
+          elapsedSeconds: elapsed,
+          completedAt: now,
+        );
+
+        return updatedTimer;
+      }
+      return timer;
+    }).toList();
+
+    emit(TimerState$Data(timers: updatedTimers, orderType: state.orderType));
+    final result = await _timerRepository
+        .updateTimer(updatedTimers.firstWhere((e) => e.id == event.timerId));
+    if (result is TimerResult$Success) {
+      _stopTickerIfNoActiveTimers();
+      return;
+    }
+    emit(TimerState$Error(
+      timers: timers,
+      orderType: state.orderType,
+      error: const TimerError$FailToUpdate(),
+    ));
   }
 
   Future<void> _create(
@@ -147,6 +186,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       case TimerResult$Success<List<TimerModel>>():
         final timers = result.data;
         timers.sort((a, b) => a.elapsedSeconds.compareTo(b.elapsedSeconds));
+        _startTicker();
         emit(TimerState$Data(timers: timers, orderType: state.orderType));
       case TimerResult$Failure<List<TimerModel>>():
         emit(TimerState$Error(

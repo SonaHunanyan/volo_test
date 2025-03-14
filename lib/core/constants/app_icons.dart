@@ -11,4 +11,7 @@ class AppIcons {
   static const check = '${_base}check.svg';
   static const chevronLeft = '${_base}chevron_left.svg';
   static const chevronDown = '${_base}chevron_down.svg';
+  static const pencil = '${_base}pencil.svg';
+  static const complete = '${_base}complete.svg';
+  static const done = '${_base}done.svg';
 }

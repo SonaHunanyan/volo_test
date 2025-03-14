@@ -18,4 +18,5 @@ class AppStrings {
       count == 1 ? 'You have $count Timer' : 'You have $count Timers';
 
   static deadline(String date) => 'Deadline $date';
+  static const completedRecords = 'Completed Records';
 }

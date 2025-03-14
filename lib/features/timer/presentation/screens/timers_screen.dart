@@ -107,11 +107,22 @@ class TimersScreen extends StatelessWidget {
                                 .firstWhereOrNull((e) => e.id == timer.taskId);
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 4.h),
-                              child: TimerCardWidget(
-                                timer: timer,
-                                task: task,
-                                project: projectState.projects.firstWhereOrNull(
-                                    (e) => e.id == task?.projectId),
+                              child: GestureDetector(
+                                onTap: () {
+                                  final taskId = task?.id;
+                                  if (taskId == null) {
+                                    return;
+                                  }
+                                  context.router
+                                      .push(TaskRoute(taskId: taskId));
+                                },
+                                child: TimerCardWidget(
+                                  timer: timer,
+                                  task: task,
+                                  project: projectState.projects
+                                      .firstWhereOrNull(
+                                          (e) => e.id == task?.projectId),
+                                ),
                               ),
                             );
                           },

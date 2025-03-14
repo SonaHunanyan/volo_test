@@ -3,8 +3,20 @@ import 'package:volo_test/features/timer/domain/model/timer.dart';
 
 class TimerDataSource implements ITimerDataSource {
   final List<TimerModel> _timers = [
-    TimerModel(id: 1, createdAt: DateTime.now(), taskId: 1),
-    TimerModel(id: 2, createdAt: DateTime.now(), taskId: 2),
+    TimerModel(
+      id: 1,
+      createdAt: DateTime.now(),
+      taskId: 1,
+      startTime: DateTime.now(),
+      currentState: TimerCurrentState.running,
+    ),
+    TimerModel(
+      id: 2,
+      createdAt: DateTime.now(),
+      taskId: 2,
+      startTime: DateTime.now(),
+      currentState: TimerCurrentState.running,
+    ),
   ];
 
   @override

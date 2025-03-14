@@ -9,6 +9,7 @@ class SecondaryAppBar extends AppBar {
   SecondaryAppBar(
     BuildContext context, {
     required String titleText,
+    TextStyle? titleStyle,
     super.actions,
     super.key,
   }) : super(
@@ -32,9 +33,10 @@ class SecondaryAppBar extends AppBar {
           ),
           title: Text(
             titleText,
-            style: context.themeData.textTheme.headlineSmall?.copyWith(
-              color: context.themeData.colorScheme.onSurface,
-            ),
+            style: titleStyle ??
+                context.themeData.textTheme.headlineSmall?.copyWith(
+                  color: context.themeData.colorScheme.onSurface,
+                ),
           ),
         );
 }
