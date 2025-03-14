@@ -16,6 +16,7 @@ final lightTheme = base.copyWith(
   colorScheme: ColorScheme.light(
     onSurface: AppColors.white,
     secondaryContainer: AppColors.white.withOpacity(0.16),
+    onSecondaryContainer: AppColors.white,
     primaryContainer: AppColors.white,
     error: AppColors.red,
     surfaceBright: AppColors.white.withOpacity(0.08),

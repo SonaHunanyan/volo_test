@@ -1,18 +1,40 @@
+enum TimerCurrentState { running, paused }
+
 class TimerModel {
-  const TimerModel({
+  TimerModel({
     required this.id,
-    required this.startTime,
     required this.taskId,
-    this.isPlaying = false,
-    this.durationInSeconds = 0,
+    required this.createdAt,
+    this.isFavorite = false,
+    this.startTime,
+    this.currentState = TimerCurrentState.paused,
+    this.elapsedSeconds = 0,
     this.description,
-    this.endTime,
   });
   final int id;
-  final DateTime startTime;
-  final DateTime? endTime;
   final String? description;
-  final bool isPlaying;
   final int taskId;
-  final int durationInSeconds;
+  final DateTime createdAt;
+  final TimerCurrentState currentState;
+  final int elapsedSeconds;
+  final DateTime? startTime;
+  final bool isFavorite;
+
+  TimerModel copyWith({
+    TimerCurrentState? currentState,
+    int? elapsedSeconds,
+    bool? isFavorite,
+    DateTime? startTime,
+  }) {
+    return TimerModel(
+      id: id,
+      description: description,
+      taskId: taskId,
+      createdAt: createdAt,
+      startTime: startTime ?? this.startTime,
+      currentState: currentState ?? this.currentState,
+      elapsedSeconds: elapsedSeconds ?? this.elapsedSeconds,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
 }

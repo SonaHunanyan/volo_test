@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:volo_test/core/constants/app_icons.dart';
 import 'package:volo_test/core/constants/app_strings.dart';
 import 'package:volo_test/core/extensions/date_extension.dart';
+import 'package:volo_test/core/extensions/duration_extension.dart';
 import 'package:volo_test/core/extensions/theme_extension.dart';
 import 'package:volo_test/features/project/domain/model/project.dart';
 import 'package:volo_test/features/task/domain/model/task.dart';
 import 'package:volo_test/features/timer/domain/model/timer.dart';
+import 'package:volo_test/features/timer/presentation/bloc/timer_bloc.dart';
+import 'package:volo_test/features/timer/presentation/bloc/timer_event.dart';
 import 'package:volo_test/features/timer/presentation/widgets/widgets.dart';
 
 class TimerCardWidget extends StatelessWidget {
@@ -41,11 +45,20 @@ class TimerCardWidget extends StatelessWidget {
           ),
           const Spacer(),
           TimerWidget(
-            duration: timer.isPlaying
-                ? DateTime.now().difference(timer.startTime)
-                : Duration(seconds: timer.durationInSeconds),
-            isPlaying: timer.isPlaying,
-            onPlayPause: () {},
+            duration: Duration(seconds: timer.elapsedSeconds).toHM(),
+            currentState: timer.currentState,
+            onPlayPause: () {
+              switch (timer.currentState) {
+                case TimerCurrentState.running:
+                  context
+                      .read<TimerBloc>()
+                      .add(TimerEvent$PauseTimer(timer.id));
+                case TimerCurrentState.paused:
+                  context
+                      .read<TimerBloc>()
+                      .add(TimerEvent$StartTimer(timer.id));
+              }
+            },
           )
         ],
       ),
