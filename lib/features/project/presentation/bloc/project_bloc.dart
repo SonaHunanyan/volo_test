@@ -12,6 +12,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     on<ProjectEvent>((event, emit) => switch (event) {
           ProjectsEvent$Get() => _getProjects(event, emit),
         });
+
+    add(const ProjectsEvent$Get());
   }
 
   final IProjectRepository _projectRepository;
